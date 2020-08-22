@@ -26,7 +26,7 @@ export cross_compile_toolchain=/path/to/linaro/aarch64
 mkdir build && cd build  
 cmake .. -DCMAKE_SYSTEM_NAME=Linux -DCMAKE_SYSTEM_VERSION=1 -DCMAKE_SYSTEM_PROCESSOR=aarch64 -DCMAKE_C_COMPILER=$cross_compile_toolchain/bin/aarch64-linux-gnu-gcc -DCMAKE_CXX_COMPILER=$cross_compile_toolchain/bin/aarch64-linux-gnu-g++ -DCMAKE_ASM_COMPILER=$cross_compile_toolchain/bin/aarch64-linux-gnu-gcc  
 make -j4  
-__This step will generate some dynamic libs for use. If some libs cannot find, just go to cross-toolchain to find.__
+__This step will generate some dynamic libs for test in board. If some libs cannot find, just go to cross-toolchain to find.__
 ## (5) cross-compile demo
 cd ../demo/exec/  
 add this __mnv1_mnn.cpp__ in it, and add these in CMakeLists.txt:  
