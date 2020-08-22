@@ -3,10 +3,11 @@ https://github.com/alibaba/MNN
 
 This repo is about hwo to compile/cross-compile the MNN framework in Linux. (I just tested it in Ubuntu 16.04.6, and it might be something wrong in CentOS7.)
 
-## (1) download the MNN: git clone https://github.com/alibaba/MNN
+## (1) download the MNN: 
+git clone https://github.com/alibaba/MNN
 ## (2) make sure that you have installed these:(https://www.yuque.com/mnn/en/build_linux)
-cmake (version >=3.10 is recommended)
-protobuf (version >= 3.0 is required)
+cmake (version >=3.10 is recommended)  
+protobuf (version >= 3.0 is required)  
 gcc (version >= 4.9 is required)
 ## (3) compile converter(https://www.yuque.com/mnn/en/cvrt_linux)
 cd MNN/
