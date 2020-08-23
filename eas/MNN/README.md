@@ -9,16 +9,16 @@ git clone https://github.com/alibaba/MNN
 cmake (version >=3.10 is recommended)  
 protobuf (version >= 3.0 is required) (I just installed 3.13.0)  
 gcc (version >= 4.9 is required)
-## (3) compile converter(https://www.yuque.com/mnn/en/cvrt_linux)
-`
+## (3) compile converter(https://www.yuque.com/mnn/en/cvrt_linux)  
+download the model from http://download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224.tgz  
+` 
 cd MNN/  
 ./schema/generate.sh  
 mkdir build && cd build  
-cmake .. -DMNN_BUILD_CONVERTER=true && make -j4  
-download the model from http://download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224.tgz  
+cmake .. -DMNN_BUILD_CONVERTER=true && make -j4    
 ./MNNConvert -f TF --modelFile ../../mobilenet_v1_1.0_224_frozen.pb --MNNModel mnv1.mnn --bizCode MNN  
-`
-__mnv1.mnn__ is needed for test.
+`  
+__mnv1.mnn__ is needed for test.  
 ## (4) cross-compile inference(https://www.yuque.com/mnn/en/build_linux)
 MNN's compile is composed of three relative independent stages/programs(inference, ), if we juse want to realize inference, just compile inference and converter.  
 cd MNN/  
