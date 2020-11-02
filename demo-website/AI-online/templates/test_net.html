@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>AI-Online-Demo</title>
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../node_modules/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../node_modules/simple-line-icons/css/simple-line-icons.css">
+  <link rel="stylesheet" href="../../node_modules/flag-icon-css/css/flag-icon.min.css">
+  <link rel="stylesheet" href="../../node_modules/perfect-scrollbar/css/perfect-scrollbar.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <link rel="stylesheet" href="../../node_modules/chartist/dist/chartist.min.css" />
+  <link rel="stylesheet" href="../../node_modules/jvectormap/jquery-jvectormap.css" />
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../static/css/style.css" />
+  <link rel="stylesheet" href="../static/css/base.css" />
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../static/images/favicon.png" />
+</head>
+
+<body class="sidebar-fixed">
+  <div class="container-scroller ">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper">
+        <a class="navbar-brand brand-logo" href="../../index.html"><img src="../static/images/logo.svg" alt="logo"></a>
+        <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="../static/images/logo_mini.svg"
+            alt="logo"></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center">
+        <button class="navbar-toggler navbar-toggler d-none d-lg-block align-self-center mr-2" type="button"
+          data-toggle="minimize">
+          <span class="icon-list icons"></span>
+        </button>
+        <p class="page-name d-none d-lg-block"
+          style="font-family: Microsoft YaHei; font-size: 25px; font-weight:bolder">AI-Online-Demo</p>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center ml-auto" type="button"
+          data-toggle="offcanvas">
+          <span class="icon-menu icons"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper" style="font-size: 16px;">
+      <div class="row row-offcanvas row-offcanvas-right">
+        <!-- partial:../../partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-category">
+              <span class="nav-link" style="font-size: 16px;">功能</span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8008/dataset/">
+                <span class="menu-title" style="font-size: small;">数据集</span>
+                <i class="icon-speedometer menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8008/train/">
+                <span class="menu-title" style="font-size: small;">模型训练</span>
+                <i class="icon-wrench menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8008/optimize/" aria-expanded="false"
+                aria-controls="page-layouts">
+                <span class="menu-title" style="font-size: small;">模型优化</span>
+                <i class="icon-size-actual menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8008/test/" aria-expanded="false" aria-controls="error">
+                <span class="menu-title" style="color: darkseagreen; font-weight: bold; font-size: medium;">模型测试</span>
+                <i class="icon-support menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8008/launch/" aria-expanded="false" aria-controls="error">
+                <span class="menu-title" style="font-size: small;">模型部署</span>
+                <i class="icon-support menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8008/test_video/" aria-expanded="false" aria-controls="error">
+                <span class="menu-title" style="font-size: small;">视频流</span>
+                <i class="icon-support menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="content-wrapper" style="text-align: center;">
+          <!-- ROW ENDS -->
+          <div class="row">
+            <div class="col-lg-12 grid-margin">
+              <div class="card px-3">
+                <div class="card-body">
+                  <!-- <h2 class="card-title">识别车牌</h2> -->
+                  <form action="http://127.0.0.1:8008/test/" enctype="multipart/form-data" method="POST">
+                    <div  style="font-size:18px;">
+                      <label>模型测试:</label>
+                      <p>
+                        <label> 模型名称：</label>
+                        <select name="model_name">
+                          <option value="0">torch_01</option>
+                          <option value="1">torch_02</option>
+                        </select>
+                      </p>
+                      <p>
+                        <label>上传图片：</label>
+                        <input style="display: inline;" type="file" name="file" accept="image/*" id='imageInput'
+                          onchange="loadImagesFile();" />
+                        <input style="display: inline;" class="button_new" type="submit" value="识别"
+                          class="button-new" />
+                      </p>
+                    </div>
+                  </form>
+                  {% if flag %}
+                  <div style="float:left;width:60%">
+                    <img src="../static/images/default.jpg" width="550px" height="auto" id="imgsrc"
+                      alt="你的图片被外星人劫持了~" />
+                  </div>
+                  {% else %}
+                  <div style="float:left; width:40%">
+                    <img src="../static/images/target.jpg" width="550px" height="auto" id="imgsrc" alt="你的图片被外星人劫持了~" />
+                  </div>
+                  <div style="float:right; width:30%;">
+                    <p>
+                      {{ result }}
+                    </p>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+            <!-- ROW ENDS -->
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:../../partials/_footer.html -->
+          <footer class="footer">
+            <div class="container-fluid clearfix">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018 Bootstrapdash
+                All rights reserved. More Templates <a href="http://www.cssmoban.com/" target="_blank"
+                  title="AI-DEMO">AI-DEMO</a> - </span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i
+                  class="mdi mdi-heart text-danger"></i></span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- row-offcanvas ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+
+    <script>
+      var loadImagesFile = (function () {
+        console.log("start");
+        if (window.FileReader) {
+          var oPreviewImg = null;
+          var oFReader = new window.FileReader();
+          var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+
+          oFReader.onload = function (oFREvent) {
+            $('#imgsrc').attr('src', oFREvent.target.result).css('display', '');
+          };
+          console.log("finish");
+
+          return function () {
+            var aFiles = document.getElementById("imageInput").files;
+            if (aFiles.length === 0) { return; }
+            if (!rFilter.test(aFiles[0].type)) { alert("你必须选择有效的图像文件!"); return; }
+            oFReader.readAsDataURL(aFiles[0]);
+          }
+        }
+      })();
+
+    </script>
+</body>
+
+</html>

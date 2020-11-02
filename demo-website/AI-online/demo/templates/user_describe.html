@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>车牌识别系统</title>
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+  <!-- inject:css -->
+  <link rel="stylesheet" href="../static/css/style.css" />
+  <link rel="stylesheet" href="../static/css/base.css" />
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../static/images/favicon.png" />
+
+</head>
+
+<body class="sidebar-fixed">
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper">
+        <a class="navbar-brand brand-logo" href="http://localhost:8008/admin_home/"><img src="../static/images/logo.svg"
+            alt="logo"></a>
+        <a class="navbar-brand brand-logo-mini" href="http://localhost:8008/admin_home/"><img
+            src="../static/images/logo_mini.svg" alt="logo"></a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center">
+        <button class="navbar-toggler navbar-toggler d-none d-lg-block align-self-center mr-2" type="button"
+          data-toggle="minimize">
+          <span class="icon-list icons"></span>
+        </button>
+        <p class="page-name d-none d-lg-block"  style="font-family: Microsoft YaHei; font-size: 25px; font-weight:bolder">车牌识别系统</p>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center ml-auto" type="button"
+          data-toggle="offcanvas">
+          <span class="icon-menu icons"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <div class="row row-offcanvas row-offcanvas-right">
+        <!-- partial:../../partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-category">
+              <span class="nav-link" style="font-size: 16px;">功能</span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8008/user_home/" aria-expanded="false"
+                aria-controls="page-layouts">
+                <span class="menu-title" class="menu-title">车辆查询</span>
+                <i class="icon-size-actual menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8008/describe/" aria-expanded="false" aria-controls="error">
+                <span class="menu-title" style="color: darkseagreen; font-weight: bold;">网站简介</span>
+                <i class="icon-support menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="http://localhost:8008/login/" aria-expanded="false" aria-controls="error">
+                <span class="menu-title">登出</span>
+                <i class="icon-support menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="content-wrapper">
+          <!-- ROW ENDS -->
+          <div class="row">
+            <div class="col-lg-12 grid-margin">
+              <div class="card px-3">
+                <div class="card-body">
+                  <h2 class="card-title" style="font-size: 25px;">网站简介</h2>
+                  <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <div  id="describe" width="1000px">
+                      <p style="text-indent:2em;font-size: 15px;">
+                        <span>本网站是一个简单的车牌识别系统，主要用于展示基于相似度的卷积核剪枝和参数8比特量化的模型加速方法的性能结果，
+                          并模拟现实场景中的停车场管理和调用神经网络模型进行车牌识别的整体流程。
+                        </span>
+                      </p>
+                      <p style="text-indent:2em;font-size: 15px;">
+                        <span>本车牌识别系统基于Flask框架实现，具备简单的页面交互和模型运行结果展示，为用户提供登录注册、查询特定车牌号的历史记录、
+                          管理员查看停车场内车辆、查看车辆进出历史、允许车辆进入或离开、调用模型识别车牌这几个功能，展现了实际应用场景中模型压缩的必要性和有效性。
+                        </span>
+                      </p>
+                      <p style="text-indent:2em;font-size: 15px;"> 
+                        <span>
+                          本网站用到的对深度模型压缩和加速的算法的流程图如下图所示。
+                        </span>
+                        <br>
+                      <div align:center style="text-align: center;">
+                        <img src="../static/images/describe1.png" width="250px" height="auto" id="imgsrc"
+                          alt="你的图片被外星人劫持了~"/>
+                      </div>
+                      </p>
+                      <p style="text-indent:2em;font-size: 15px;">
+                        <span>
+                          该算法主要针对LeNet-5网络和ResNet50网络进行了网络压缩和加速实验，对比对象是基于平均零百分比值（APoZ）的通道剪枝算法，获得的结果如表1和表2所示。
+                        </span>
+                        <br>
+                      <div style="align-content: center; font-size: 14px; text-align: center;">
+                        <p>表1 LeNet网络的实验结果</p>
+                        <img src="../static/images/describe2.png" width="400px" height="auto" id="imgsrc"
+                          alt="你的图片被外星人劫持了~" />
+                        <br>
+                        <p>表2 ResNet50网络的实验结果</p>
+                        <img src="../static/images/describe3.png" width="300px" height="auto" id="imgsrc"
+                          alt="你的图片被外星人劫持了~" />
+                      </div>
+                      </p>
+                      <p>
+                        <span>
+                          本网站仅用作结果展示，如有不当，请联系网站作者（rydj1997@bupt.edu.cn)。
+                        </span>
+
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ROW ENDS -->
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:../../partials/_footer.html -->
+        <footer class="footer">
+
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- row-offcanvas ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>用户注册</title>
+  <!-- plugins:css -->
+  <!-- <link rel="stylesheet" href="../../node_modules/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../node_modules/simple-line-icons/css/simple-line-icons.css">
+  <link rel="stylesheet" href="../../node_modules/flag-icon-css/css/flag-icon.min.css"> -->
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+    <!-- inject:css -->
+  <link rel="stylesheet" href="../static/css/style.css"/>
+  <link rel="stylesheet" href="../static/css/base.css"/>
+  <!-- endinject -->
+  <link rel="shortcut icon" href="../static/images/favicon.png" />
+</head>
+
+<body>
+  <img src="../static/images/Login_bg.jpg" class="bg"/>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper">
+      <div class="row">
+        <div class="content-wrapper full-page-wrapper d-flex align-items-center auth register-full-bg">
+          <div class="row w-100">
+            <div class="col-lg-4 mx-auto">
+              <div class="auth-form-light text-left p-5">
+                <h2>注册</h2>
+                <h4 class="font-weight-light">你好，新用户！</h4>
+                <form class="pt-4" action="" enctype="multipart/form-data" method="POST">
+                    <div class="form-group">
+                      <label for="username">用户名</label>
+                      <input type="text" name="username" class="form-control" id="username" aria-describedby="emailHelp" placeholder="用户名">
+                      <i class="mdi mdi-account"></i>
+                    </div>
+                    <div class="form-group">
+                      <label for="password">密码</label>
+                      <input type="password" name="password" class="form-control" id="password" placeholder="密码">
+                      <i class="mdi mdi-eye"></i>
+                    </div>
+                    <div class="form-group">
+                      <label for="password2">确认密码</label>
+                      <input type="password" name="checkPassword" class="form-control" id="password2" placeholder="确认密码">
+                      <i class="mdi mdi-eye"></i>
+                    </div>
+                    {% if flag %}
+                    <div class="mt-2 text-center">
+                      <span class="font-weight-medium">{{msg}}</span>
+                    </div>
+                    {% endif %}
+                    <div class="mt-5">
+                      <input type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium" value="注册">
+                    </div>
+                    <!-- <div class="mt-2 w-75 mx-auto">
+                      <div class="form-check form-check-flat">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input">
+                          我接受所有条例
+                        </label>
+                      </div>
+                    </div> -->
+                    <div class="mt-2 text-center">
+                      <a href="http://localhost:8008/login/" class="auth-link text-black">已有帐号? <span class="font-weight-medium">登录</span></a>
+                    </div>              
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+      </div>
+      <!-- row ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <script src="../../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="../../node_modules/popper.js/dist/umd/popper.min.js"></script>
+  <script src="../../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- endinject -->
+  <!-- inject:js -->
+  <script src="../../js/off-canvas.js"></script>
+  <script src="../../js/misc.js"></script>
+  <!-- endinject -->
+</body>
+
+</html>

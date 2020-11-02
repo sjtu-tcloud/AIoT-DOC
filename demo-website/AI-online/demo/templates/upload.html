@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block page_name %}车牌识别Demo{% endblock %}
+
+{% block aside_part %}
+
+<h3>车牌识别监控</h3>
+{% if flag %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div style="font-size:18px;">请选择进场车辆图片：
+        <input type="file" name="file" stype="margin-top:20px;" accept="image/*" id='imageInput'
+            onchange="loadImagesFile();" />
+        <input type="submit" value="识别车牌" class="button-new" style="margin-top:15px;" />
+        <br>
+        <br>
+    </div>
+</form>
+<!-- <button style="margin:15px">允许进入</button>
+<button style="margin: 15px;">允许离开</button> -->
+<img src="../static/images/target.jpg" width="550px" height="auto" id="imgsrc" />
+{% else %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div style="font-size:18px;">请选择进场车辆图片：
+        <input type="file" name="file" stype="margin-top:20px;" accept="image/*" id='imageInput'
+            onchange="loadImagesFile();" />
+        <input type="submit" value="识别车牌" class="button-new" style="margin-top:15px;" />
+        <br>
+        <br>
+    </div>
+</form>
+<div style="font-size:18px;">
+    <button style="margin:15px" onclick="allowEnter();">允许进入</button>
+    <button style="margin: 15px;" onclick="allowLeave();">允许离开</button>
+    <div id="message" style="color: red;">{{ message }}</div>
+    <p id="msg" style="color: red;">{{ msg }}</p>
+</div>
+<div style="margin:1%">
+<table id="result" style="margin:3px;width: 300px;text-align: center;" border="1">
+    <tr>
+        <td style="width: 32%;">模型</td>
+        <td style="width: 33%;">结果</td>
+        <td style="width: 33%;">用时(s)</td>
+    </tr>
+    <tr>
+        <td>Baseline</td>
+        <td id="B_result">{{ B_result }}</td>
+        <td>{{ B_time }}</td>
+        <!-- <td>1.89901</td> -->
+    </tr>
+    <tr>
+        <td>Pruned</td>
+        <td id="P_result">{{ P_result }}</td>
+        <td>{{ P_time }}</td>
+        <!-- <td>1.31838</td> -->
+    </tr>
+</table>
+</div>
+<img src="../static/images/tmp.png" width="550px" height="auto" id="imgsrc" alt="你的图片被外星人劫持了~" />
+
+{% endif %}
+
+
+
+{% endblock %}
+
+{% block main_part %}
+
+<h3>车辆进出记录</h3>
+<div id="history">
+    <div class="cardBox">
+        <div class="headerBox">
+            test-header
+        </div>
+        <div class="bodyBox">
+            test-body
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="{{ url_for(endpoint='static',filename='css/base.css') }}" />
+
+    <!-- <link rel="shortcut icon" href="{{ url_for(endpoint='static', filename='images/favicon.ico') }}"> -->
+
+    <title>{% block page_name %}{% endblock %}-HarpQA</title>
+
+    <script>
+        // 获取内容
+        function requestData() {
+            console.log("onload");
+            $.ajax({
+                url: "http://localhost:8008/history/",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    /*这个方法里是ajax发送请求成功之后执行的代码*/
+                    //展示车辆进出历史记录
+                    showData(data);
+                    // if (!window.localStorage) {
+                    //     console.log("浏览器不支持localstorage");
+                    //     return false;
+                    // } else {
+                    //     var storage = window.localStorage;
+                    //     // 查询条件localStorage本地存储
+                    //     var B_result = $("#B_result").val();
+                    //     var P_result = $("#P_result").val();
+                    //     storage.setItem("B_result", B_result);
+                    //     storage.setItem("P_result",P_result)
+                    // }
+                },
+                error: function (msg) {
+                    console.log(msg);
+                    alert("ajax连接异常：" + msg);
+                }
+            });
+        }
+        window.onload = requestData;
+
+        // 展示数据
+        function showData(data) {
+            if (data.length == 0) return;
+            $("#history").html('')
+            var str = "";//定义用于拼接的字符串
+            for (var i = 0; i < data.length; i++) {
+                //console.log(data[i].his_type);
+                //console.log(data[i].his_type == "enter")
+                if (data[i].his_type == "enter") { var temp = "车辆进入停车场"; }
+                else if (data[i].his_type == "leave") { var temp = "车辆离开停车场"; }
+                else { var temp = "错误信息"; }
+                // 拼接进出场记录中的消息
+                str = '<div class="cardBox"><div class="headerBox">' + temp +
+                    '</div><div class="bodyBox">' + data[i].msg + ' </div> </div>';
+                //追加到页面上
+                $("#history").before(str);
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="top">
+        <center>
+            <ul>
+                <li style="font-size:28px;list-style-type:decimal;">车牌识别系统</li>
+            </ul>
+        </center>
+    </div>
+
+    <div class="main-aside-container">
+        <div class="aside-container">
+            {% block aside_part %}
+
+            {% endblock %}
+        </div>
+        <div class="main-container">
+            {% block main_part %}
+
+            {% endblock %}
+        </div>
+    </div>
+
+</body>
+<script>
+    var loadImagesFile = (function () {
+        //console.log("start");
+        if (window.FileReader) {
+            var oPreviewImg = null, oFReader = new window.FileReader(),
+                rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+
+            oFReader.onload = function (oFREvent) {
+                $('#imgsrc').attr('src', oFREvent.target.result).css('display', '');
+            };
+            //console.log("finish");
+
+            return function () {
+                var aFiles = document.getElementById("imageInput").files;
+                if (aFiles.length === 0) { return; }
+                if (!rFilter.test(aFiles[0].type)) { alert("你必须选择有效的图像文件!"); return; }
+                oFReader.readAsDataURL(aFiles[0]);
+            }
+        }
+    })();
+
+    function allowEnter() {
+        console.log("allowEnter");
+        $.ajax({
+            url: "http://localhost:8008/allow-enter/",
+            type: "POST",
+            success: function (resp) {
+                /*这个方法里是ajax发送请求成功之后执行的代码*/
+                console.log("enter success");
+                console.log(resp);
+                $("#message").html('')
+                $("#message").append(resp.msg);
+                if (resp.code == "200") {
+                    if (resp.his_type == "enter") { var temp = "车辆进入停车场"; }
+                    else if (resp.his_type == "leave") { var temp = "车辆离开停车场"; }
+                    else { var temp = "错误信息"; }
+                    // 拼接进出场记录中的消息
+                    str = '<div class="cardBox"><div class="headerBox">' + temp +
+                        '</div><div class="bodyBox">' + resp.his_msg + ' </div> </div>';
+                    //追加到页面上
+                    $("#history").before(str);
+                }
+            },
+            error: function (msg) {
+                console.log(msg);
+                alert("ajax连接异常：" + msg);
+            }
+        });
+    }
+
+    function allowLeave() {
+        console.log("allowLeave");
+        $.ajax({
+            url: "http://localhost:8008/allow-leave/",
+            type: "POST",
+            success: function (resp) {
+                /*这个方法里是ajax发送请求成功之后执行的代码*/
+                console.log("leave success");
+                console.log(resp);
+                $("#message").html('')
+                $("#message").append(resp.msg);
+                if (resp.code == "200") {
+                    if (resp.his_type == "enter") { var temp = "车辆进入停车场"; }
+                    else if (resp.his_type == "leave") { var temp = "车辆离开停车场"; }
+                    else { var temp = "错误信息"; }
+                    // 拼接进出场记录中的消息
+                    str = '<div class="cardBox"><div class="headerBox">' + temp +
+                        '</div><div class="bodyBox">' + resp.his_msg + ' </div> </div>';
+                    //追加到页面上
+                    $("#history").before(str);
+                }
+            },
+            error: function (msg) {
+                console.log(msg);
+                alert("ajax连接异常：" + msg);
+            }
+        });
+    }
+
+</script>
+
+</html>
